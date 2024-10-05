@@ -282,7 +282,6 @@ following distro/arch combinations:
 
 ## Arch User Repository (AUR)
 
-- [tizonia-all (for the latest released version)](https://aur.archlinux.org/packages/tizonia-all/)
 - [tizonia-all-git (HEAD of master branch)](https://aur.archlinux.org/packages/tizonia-all-git/)
 
 <details><summary><b>Show details</b></summary>
