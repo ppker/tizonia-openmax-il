@@ -5,9 +5,6 @@ endif
 subdir('youtube')
 subdir('plex')
 subdir('chromecast')
-if enable_libspotify
-   subdir('spotify')
-endif
 subdir('tunein')
 subdir('iheart')
 
