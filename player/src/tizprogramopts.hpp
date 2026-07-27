@@ -63,9 +63,6 @@ namespace tiz
     bool recurse () const;
     bool daemon () const;
     const std::string &chromecast_name_or_ip () const;
-    const std::string &proxy_server () const;
-    const std::string &proxy_user () const;
-    const std::string &proxy_password () const;
     const std::string &log_dir () const;
     bool debug_info () const;
     const std::string &component_name () const;
@@ -79,14 +76,6 @@ namespace tiz
     const std::string &sampling_rates () const;
     const std::vector< int > &sampling_rate_list () const;
     const std::vector< std::string > &uri_list () const;
-    const std::string &spotify_user () const;
-    const std::string &spotify_password () const;
-    const std::string &spotify_owner () const;
-    bool spotify_recover_lost_token () const;
-    bool spotify_allow_explicit_tracks () const;
-    uint32_t spotify_preferred_bitrate () const;
-    const std::vector< std::string > &spotify_playlist_container ();
-    OMX_TIZONIA_AUDIO_SPOTIFYPLAYLISTTYPE spotify_playlist_type ();
     const std::string &gmusic_user () const;
     const std::string &gmusic_password () const;
     const std::string &gmusic_device_id () const;
@@ -130,7 +119,6 @@ namespace tiz
     void init_omx_options ();
     void init_streaming_server_options ();
     void init_streaming_client_options ();
-    void init_spotify_options ();
     void init_gmusic_options ();
 #ifdef HAVE_SOUNDCLOUD
     void init_scloud_options ();
@@ -151,7 +139,6 @@ namespace tiz
     int consume_omx_options (bool &done, std::string &msg);
     int consume_streaming_server_options (bool &done, std::string &msg);
     int consume_streaming_client_options (bool &done, std::string &msg);
-    int consume_spotify_client_options (bool &done, std::string &msg);
     int consume_gmusic_client_options (bool &done, std::string &msg);
 #ifdef HAVE_SOUNDCLOUD
     int consume_scloud_client_options (bool &done, std::string &msg);
@@ -166,7 +153,6 @@ namespace tiz
 
     bool validate_omx_options () const;
     bool validate_streaming_server_options () const;
-    bool validate_spotify_client_options () const;
     bool validate_gmusic_client_options () const;
 #ifdef HAVE_SOUNDCLOUD
     bool validate_scloud_client_options () const;
@@ -193,7 +179,6 @@ namespace tiz
     boost::program_options::options_description omx_;
     boost::program_options::options_description server_;
     boost::program_options::options_description client_;
-    boost::program_options::options_description spotify_;
     boost::program_options::options_description gmusic_;
 #ifdef HAVE_SOUNDCLOUD
     boost::program_options::options_description scloud_;
@@ -203,7 +188,6 @@ namespace tiz
     boost::program_options::options_description plex_;
     boost::program_options::options_description iheart_;
     boost::program_options::options_description chromecast_;
-    boost::program_options::options_description proxy_;
     boost::program_options::options_description input_;
     boost::program_options::positional_options_description positional_;
 
@@ -214,9 +198,6 @@ namespace tiz
     bool daemon_;
     std::string chromecast_name_or_ip_;
     uint32_t buffer_seconds_;
-    std::string proxy_server_;
-    std::string proxy_user_;
-    std::string proxy_password_;
     std::string log_dir_;
     bool debug_info_;
     std::string comp_name_;
@@ -230,35 +211,6 @@ namespace tiz
     std::string sampling_rates_;
     std::vector< int > sampling_rate_list_;
     std::vector< std::string > uri_list_;
-    std::string spotify_user_;
-    std::string spotify_pass_;
-    std::string spotify_owner_;
-    bool spotify_recover_lost_token_;
-    bool spotify_allow_explicit_tracks_;
-    uint32_t spotify_preferred_bitrate_;
-    std::string spotify_tracks_;
-    std::string spotify_artist_;
-    std::string spotify_album_;
-    std::string spotify_playlist_;
-    std::string spotify_track_id_;
-    std::string spotify_artist_id_;
-    std::string spotify_album_id_;
-    std::string spotify_playlist_id_;
-    std::string spotify_related_artists_;
-    std::string spotify_featured_playlist_;
-    std::string spotify_new_releases_;
-    std::string spotify_recommendations_by_track_id_;
-    std::string spotify_recommendations_by_artist_id_;
-    std::string spotify_recommendations_by_track_;
-    std::string spotify_recommendations_by_artist_;
-    std::string spotify_recommendations_by_genre_;
-    std::string spotify_user_liked_tracks_;
-    std::string spotify_user_recent_tracks_;
-    std::string spotify_user_top_tracks_;
-    std::string spotify_user_top_artists_;
-    std::string spotify_user_playlist_;
-    std::vector< std::string > spotify_playlist_container_;
-    OMX_TIZONIA_AUDIO_SPOTIFYPLAYLISTTYPE spotify_playlist_type_;
     std::string gmusic_user_;
     std::string gmusic_pass_;
     std::string gmusic_device_id_;
@@ -341,7 +293,6 @@ namespace tiz
     std::vector< std::string > all_omx_options_;
     std::vector< std::string > all_streaming_server_options_;
     std::vector< std::string > all_streaming_client_options_;
-    std::vector< std::string > all_spotify_client_options_;
     std::vector< std::string > all_gmusic_client_options_;
 #ifdef HAVE_SOUNDCLOUD
     std::vector< std::string > all_scloud_client_options_;

@@ -22,7 +22,6 @@ cxx = meson.get_compiler('cpp')
 enable_blocking_etb_ftb = get_option('blocking-etb-ftb') #false
 enable_blocking_sendcommand = get_option('blocking-sendcommand') #false
 enable_player = get_option('player') #true
-enable_libspotify = get_option('libspotify') #false
 enable_soundcloud = get_option('soundcloud') #false
 enable_alsa = get_option('alsa') #true
 enable_aac = get_option('aac') #true
@@ -33,15 +32,12 @@ enable_docs = get_option('docs') #false
 enable_clients = get_option('clients') #true
 # disabling clients implies disabling service integrations
 if not enable_clients
-   enable_libspotify = false
    enable_soundcloud = false
 endif
 
 enabled_plugins = []
 foreach p: get_option('plugins')
-   if (p == 'spotify' and enable_libspotify) or p != 'spotify'
-      enabled_plugins += p
-   endif
+   enabled_plugins += p
 endforeach
 
 if not enabled_plugins.contains('pcm_renderer_alsa')
@@ -175,10 +171,6 @@ add_project_arguments('-I'+meson.current_build_dir(), language: ['c', 'cpp'])
 # this is an abomination, but player/src doesn't include config.h
 add_project_arguments('-include'+join_paths(meson.build_root(), 'config.h'), language: ['c', 'cpp'])
 
-if enable_libspotify
-   add_project_arguments('-DHAVE_LIBSPOTIFY', language: ['c', 'cpp'])
-endif
-
 if enable_soundcloud
    add_project_arguments('-DHAVE_SOUNDCLOUD', language: ['c', 'cpp'])
 endif
@@ -233,7 +225,6 @@ endif
 # printing a list of the enabled plugins doesn't look right,
 # plus https://github.com/mesonbuild/meson/issues/6557
 summary({'Tizonia player': enable_player,
-         'libspotify plugin': enable_libspotify,
          'SoundCloud integration': enable_soundcloud,
          'clients': enable_clients,
          'number of enabled plugins': enabled_plugins.length(),
